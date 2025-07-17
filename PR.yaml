@@ -1,0 +1,23 @@
+trigger: none  
+
+resources:
+  pipelines:
+    - pipeline: ci-pipeline
+      source: ci-pipeline
+      trigger: 
+        branches: # Branch names to include or exclude for triggering a run.
+          include:
+          - main
+          - release*
+          - refs/tags/R2.*
+          exclude:
+          - refs/pull/*
+      
+      
+
+stages:
+  - stage: deploy
+    jobs:
+      - job: deployJob
+        steps:
+          - script: echo "Deploying since CI was not triggered by a PR"
